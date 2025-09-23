@@ -10,133 +10,127 @@ import Modelo.Cuenta;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-
+import javax.swing.JOptionPane;
 public class App {
 
     public static void main(String[] args) {
             Cooperativa coop = new Cooperativa();
-            Scanner sc = new Scanner(System.in);
-            int opcion;
 
+            int opcion;
             do {
-                    System.out.println("\n--- MENÚ COOPERATIVA ---");
-                    System.out.println("1. Registrar socio");
-                    System.out.println("2. Abrir cuenta de ahorros");
-                    System.out.println("3. Realizar depósito");
-                    System.out.println("4. Realizar retiro");
-                    System.out.println("5. Listar socios (Stream)");
-                    System.out.println("6. Filtrar cuentas con saldo > 500000 (Stream)");
-                    System.out.println("7. Total de saldos en la cooperativa (Stream)");
-                    System.out.println("8. Salir");
-                    System.out.print("Seleccione una opción: ");
-                    opcion = sc.nextInt();
-                    sc.nextLine(); // limpiar buffer
+                    String menu = """
+                    --- MENÚ COOPERATIVA ---
+                    1. Registrar socio
+                    2. Abrir cuenta de ahorros
+                    3. Realizar depósito
+                    4. Realizar retiro
+                    5. Listar socios (Stream)
+                    6. Filtrar cuentas con saldo > 500000 (Stream)
+                    7. Total de saldos en la cooperativa (Stream)
+                    8. Salir
+                    Seleccione una opción:
+                    """;
+
+                    opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
 
                     switch (opcion) {
                             case 1 -> {
-                                    System.out.print("Nombre del socio: ");
-                                    String nombre = sc.nextLine();
-                                    System.out.print("Cédula: ");
-                                    String cedula = sc.nextLine();
-                                    coop.registrarSocio(new Socio(nombre, cedula));
-                                    System.out.println("Socio registrado con éxito.");
+                                    String nombre = JOptionPane.showInputDialog("Nombre del socio:");
+                                    String cedula = JOptionPane.showInputDialog("Cédula del socio:");
+                                    Socio socio = new Socio(nombre, cedula);
+                                    coop.registrarSocio(socio);
+                                    JOptionPane.showMessageDialog(null, "✅ Socio registrado correctamente.");
                             }
 
                             case 2 -> {
-                                    System.out.print("Cédula del socio: ");
-                                    String cedula = sc.nextLine();
+                                    String cedula = JOptionPane.showInputDialog("Cédula del socio:");
                                     Socio socio = coop.getSocios().stream()
                                             .filter(s -> s.getCedula().equals(cedula))
                                             .findFirst()
                                             .orElse(null);
 
                                     if (socio != null) {
-                                            System.out.print("Número de cuenta: ");
-                                            String numCuenta = sc.nextLine();
-                                            System.out.print("Saldo inicial: ");
-                                            double saldo = sc.nextDouble();
-                                            System.out.print("Interés (ej: 0.02): ");
-                                            double interes = sc.nextDouble();
+                                            String numCuenta = JOptionPane.showInputDialog("Número de cuenta:");
+                                            double saldo = Double.parseDouble(JOptionPane.showInputDialog("Saldo inicial:"));
+                                            double interes = Double.parseDouble(JOptionPane.showInputDialog("Interés (ej: 0.02):"));
 
                                             coop.abrirCuenta(socio, new CuentaAhorros(numCuenta, saldo, interes));
-                                            System.out.println("Cuenta abierta con éxito.");
+                                            JOptionPane.showMessageDialog(null, "✅ Cuenta creada correctamente.");
                                     } else {
-                                            System.out.println("Socio no encontrado.");
+                                            JOptionPane.showMessageDialog(null, "❌ Socio no encontrado.");
                                     }
                             }
 
                             case 3 -> {
-                                    System.out.print("Cédula del socio: ");
-                                    String cedula = sc.nextLine();
+                                    String cedula = JOptionPane.showInputDialog("Cédula del socio:");
+                                    String numCuenta = JOptionPane.showInputDialog("Número de cuenta:");
+                                    double monto = Double.parseDouble(JOptionPane.showInputDialog("Monto a depositar:"));
+
                                     Socio socio = coop.getSocios().stream()
                                             .filter(s -> s.getCedula().equals(cedula))
                                             .findFirst()
                                             .orElse(null);
 
-                                    if (socio != null && !socio.getCuentas().isEmpty()) {
-                                            System.out.print("Número de cuenta: ");
-                                            String numCuenta = sc.nextLine();
+                                    if (socio != null) {
                                             Cuenta cuenta = socio.getCuentas().stream()
                                                     .filter(c -> c.getNumeroCuenta().equals(numCuenta))
                                                     .findFirst()
                                                     .orElse(null);
 
                                             if (cuenta != null) {
-                                                    System.out.print("Monto a depositar: ");
-                                                    double monto = sc.nextDouble();
                                                     new Deposito(cuenta, monto).ejecutar();
-                                                    System.out.println("Depósito realizado.");
+                                                    JOptionPane.showMessageDialog(null, "💰 Depósito exitoso.\nSaldo actual: " + cuenta.getSaldo());
                                             } else {
-                                                    System.out.println("Cuenta no encontrada.");
+                                                    JOptionPane.showMessageDialog(null, "❌ Cuenta no encontrada.");
                                             }
                                     } else {
-                                            System.out.println("Socio no encontrado o sin cuentas.");
+                                            JOptionPane.showMessageDialog(null, "❌ Socio no encontrado.");
                                     }
                             }
 
                             case 4 -> {
-                                    System.out.print("Cédula del socio: ");
-                                    String cedula = sc.nextLine();
+                                    String cedula = JOptionPane.showInputDialog("Cédula del socio:");
+                                    String numCuenta = JOptionPane.showInputDialog("Número de cuenta:");
+                                    double monto = Double.parseDouble(JOptionPane.showInputDialog("Monto a retirar:"));
+
                                     Socio socio = coop.getSocios().stream()
                                             .filter(s -> s.getCedula().equals(cedula))
                                             .findFirst()
                                             .orElse(null);
 
-                                    if (socio != null && !socio.getCuentas().isEmpty()) {
-                                            System.out.print("Número de cuenta: ");
-                                            String numCuenta = sc.nextLine();
+                                    if (socio != null) {
                                             Cuenta cuenta = socio.getCuentas().stream()
                                                     .filter(c -> c.getNumeroCuenta().equals(numCuenta))
                                                     .findFirst()
                                                     .orElse(null);
 
                                             if (cuenta != null) {
-                                                    System.out.print("Monto a retirar: ");
-                                                    double monto = sc.nextDouble();
-                                                    sc.nextLine(); // ⚠️ importante limpiar buffer
                                                     new Retiro(cuenta, monto).ejecutar();
+                                                    JOptionPane.showMessageDialog(null, "💸 Retiro exitoso.\nSaldo actual: " + cuenta.getSaldo());
                                             } else {
-                                                    System.out.println("Cuenta no encontrada.");
+                                                    JOptionPane.showMessageDialog(null, "❌ Cuenta no encontrada.");
                                             }
                                     } else {
-                                            System.out.println("Socio no encontrado o sin cuentas.");
+                                            JOptionPane.showMessageDialog(null, "❌ Socio no encontrado.");
                                     }
                             }
 
-
                             case 5 -> {
-                                    System.out.println("\n=== Lista de socios ===");
-                                    coop.getSocios().stream()
+                                    String socios = coop.getSocios().stream()
                                             .map(Socio::getNombre)
-                                            .forEach(System.out::println);
+                                            .reduce("", (a, b) -> a + "\n" + b);
+
+                                    JOptionPane.showMessageDialog(null, "👥 Lista de socios:\n" + socios);
                             }
 
                             case 6 -> {
-                                    System.out.println("\n=== Cuentas con saldo > 500000 ===");
-                                    coop.getSocios().stream()
+                                    String cuentas = coop.getSocios().stream()
                                             .flatMap(s -> s.getCuentas().stream())
                                             .filter(c -> c.getSaldo() > 500000)
-                                            .forEach(System.out::println);
+                                            .map(c -> "Cuenta " + c.getNumeroCuenta() + " → Saldo: " + c.getSaldo())
+                                            .reduce("", (a, b) -> a + "\n" + b);
+
+                                    JOptionPane.showMessageDialog(null, "🏦 Cuentas con saldo > 500000:\n" + cuentas);
                             }
 
                             case 7 -> {
@@ -144,16 +138,15 @@ public class App {
                                             .flatMap(s -> s.getCuentas().stream())
                                             .mapToDouble(Cuenta::getSaldo)
                                             .sum();
-                                    System.out.println("Total en la cooperativa: " + total);
+
+                                    JOptionPane.showMessageDialog(null, "💲 Total de saldos en la cooperativa: " + total);
                             }
 
-                            case 8 -> System.out.println("Saliendo del sistema...");
-
-                            default -> System.out.println("Opción inválida.");
+                            case 8 -> JOptionPane.showMessageDialog(null, "👋 Saliendo del sistema...");
+                            default -> JOptionPane.showMessageDialog(null, "❌ Opción inválida.");
                     }
-            } while (opcion != 8);
 
-            sc.close();
+            } while (opcion != 8);
 
     }
 }
