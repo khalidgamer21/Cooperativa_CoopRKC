@@ -1,7 +1,7 @@
 package Modelo;
 import javax.swing.JOptionPane;
 
-public class Cuenta {
+public abstract class Cuenta {
 
     private String numeroCuenta;
     protected double saldo;
@@ -22,21 +22,8 @@ public class Cuenta {
     public void depositar(double monto) {
         saldo += monto;
     }
-    public void retirar(double monto) {
-        if (monto > saldo) {
-            JOptionPane.showMessageDialog(null,
-                    "Error: saldo insuficiente en la cuenta " + numeroCuenta +
-                            "\nSaldo actual: " + saldo,
-                    "Error de Retiro",
-                    JOptionPane.ERROR_MESSAGE);
-        } else {
-            saldo -= monto;
-            JOptionPane.showMessageDialog(null,
-                    "Retiro exitoso.\nNuevo saldo en la cuenta " + numeroCuenta + ": " + saldo,
-                    "Retiro Exitoso",
-                    JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
+
+    public abstract void retirar(double monto);
 
     @Override
     public String toString() {

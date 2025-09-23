@@ -1,5 +1,5 @@
 package Modelo;
-
+import javax.swing.JOptionPane;
 public class CuentaAhorros extends Cuenta {
     ;
     private double interes;
@@ -13,6 +13,24 @@ public class CuentaAhorros extends Cuenta {
     public void aplicarInteres() {
         saldo += saldo * interes;
     }
+    @Override
+    public void retirar(double monto) {
+        if (monto > saldo) {
+            JOptionPane.showMessageDialog(null,
+                    "Error: saldo insuficiente en la cuenta " + getNumeroCuenta() +
+                            "\nSaldo actual: " + saldo,
+                    "Error de Retiro",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            saldo -= monto;
+            JOptionPane.showMessageDialog(null,
+                    "Retiro exitoso.\nNuevo saldo en la cuenta " + getNumeroCuenta() +
+                            ": " + saldo,
+                    "Retiro Exitoso",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
 
     @Override
     public String toString() {
