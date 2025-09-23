@@ -8,6 +8,7 @@ public class Socio {
     public Socio(String nombre, String cedula) {
         this.nombre = nombre;
         this.cedula = cedula;
+
     }
     public String getNombre() {
         return nombre;
@@ -15,6 +16,7 @@ public class Socio {
 
     public String getCedula() {
         return cedula;
+
     }
 
 
