@@ -35,7 +35,7 @@ public class CuentaAhorros extends Cuenta {
             // Si el usuario cancela o deja vacío, salimos del método sin hacer nada
             if (nuevoMonto == null || nuevoMonto.isEmpty()) {
                 JOptionPane.showMessageDialog(null,
-                        "Operación cancelada.",
+                        "Operacion cancelada.",
                         "Cancelar", JOptionPane.WARNING_MESSAGE);
                 return;
             }
@@ -44,7 +44,7 @@ public class CuentaAhorros extends Cuenta {
                 monto = Double.parseDouble(nuevoMonto); // convertimos a número
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null,
-                        "Monto inválido. Intente de nuevo.",
+                        "Monto invalido. Intente de nuevo.",
                         "Error de Formato", JOptionPane.ERROR_MESSAGE);
                 return; // salimos para no quedar atrapados en un bucle
             }
@@ -61,7 +61,7 @@ public class CuentaAhorros extends Cuenta {
 
     @Override
     public String toString() {
-        return "Cuenta de Ahorros " + getNumeroCuenta() + " | Saldo: " + saldo + " | Interés: " + interes;
+        return "Cuenta de Ah0rros " + getNumeroCuenta() + " | Saldo: " + saldo + " | Interes: " + interes;
     }
 
 

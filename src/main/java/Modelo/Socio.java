@@ -35,7 +35,7 @@ public class Socio {
 
     @Override
     public String toString() {
-        return "Socio: " + nombre + " | Cédula: " + cedula;
+        return "Socio: " + nombre + " | Cedula: " + cedula;
     }
 
 }
