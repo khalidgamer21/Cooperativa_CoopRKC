@@ -17,7 +17,7 @@ public class CuentaAhorros extends Cuenta {
 
 
     public void retirar(double monto) {
-        // Mientras el monto sea mayor al saldo, volvemos a pedir un valor válido
+        // Mientras el monto sea mayor al saldo, pido de nuevo un valor valido
         while (monto > saldo) {
             JOptionPane.showMessageDialog(null,
                     "Error su saldo es insuficiente en la cuenta " + getNumeroCuenta() +
@@ -32,7 +32,7 @@ public class CuentaAhorros extends Cuenta {
                     JOptionPane.QUESTION_MESSAGE
             );
 
-            // Si el usuario cancela o deja vacío, salimos del método sin hacer nada
+            // Si el usuario cancela o deja vacio, salimos del metodo sin hacer nada
             if (nuevoMonto == null || nuevoMonto.isEmpty()) {
                 JOptionPane.showMessageDialog(null,
                         "Operacion cancelada.",
@@ -50,7 +50,7 @@ public class CuentaAhorros extends Cuenta {
             }
         }
 
-        // Si llegamos aquí, el monto es válido
+        // si pasa, el monto es valido
         saldo -= monto;
         JOptionPane.showMessageDialog(null,
                 "Retiro exitoso.\nNuevo saldo en la cuenta " + getNumeroCuenta() +
