@@ -20,7 +20,7 @@ public class CuentaAhorros extends Cuenta {
         // Mientras el monto sea mayor al saldo, volvemos a pedir un valor válido
         while (monto > saldo) {
             JOptionPane.showMessageDialog(null,
-                    "Error: saldo insuficiente en la cuenta " + getNumeroCuenta() +
+                    "Error su saldo es insuficiente en la cuenta " + getNumeroCuenta() +
                             "\nSaldo actual: " + getSaldo(),
                     "Error de Retiro", JOptionPane.ERROR_MESSAGE);
 
