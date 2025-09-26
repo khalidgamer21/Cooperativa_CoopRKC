@@ -39,7 +39,7 @@ public class App {
                                     String cedula = JOptionPane.showInputDialog("Cédula del socio:");
                                     Socio socio = new Socio(nombre, cedula);
                                     coop.registrarSocio(socio);
-                                    JOptionPane.showMessageDialog(null, "✅ Socio registrado correctamente.");
+                                    JOptionPane.showMessageDialog(null, "Socio registrado correctamente.");
                             }
 
                             case 2 -> {
@@ -55,9 +55,9 @@ public class App {
                                             double interes = Double.parseDouble(JOptionPane.showInputDialog("Interés (ej: 0.02):"));
 
                                             coop.abrirCuenta(socio, new CuentaAhorros(numCuenta, saldo, interes));
-                                            JOptionPane.showMessageDialog(null, "✅ Cuenta creada correctamente.");
+                                            JOptionPane.showMessageDialog(null, "Cuenta creada correctamente.");
                                     } else {
-                                            JOptionPane.showMessageDialog(null, "❌ Socio no encontrado.");
+                                            JOptionPane.showMessageDialog(null, "Socio no encontrado.");
                                     }
                             }
 
@@ -81,10 +81,10 @@ public class App {
                                                     new Deposito(cuenta, monto).ejecutar();
                                                     JOptionPane.showMessageDialog(null, "💰 Depósito exitoso.\nSaldo actual: " + cuenta.getSaldo());
                                             } else {
-                                                    JOptionPane.showMessageDialog(null, "❌ Cuenta no encontrada.");
+                                                    JOptionPane.showMessageDialog(null, "Cuenta no encontrada.");
                                             }
                                     } else {
-                                            JOptionPane.showMessageDialog(null, "❌ Socio no encontrado.");
+                                            JOptionPane.showMessageDialog(null, "Socio no encontrado.");
                                     }
                             }
 
@@ -106,12 +106,12 @@ public class App {
 
                                             if (cuenta != null) {
                                                     new Retiro(cuenta, monto).ejecutar();
-                                                    JOptionPane.showMessageDialog(null, "💸 Retiro exitoso.\nSaldo actual: " + cuenta.getSaldo());
+                                                    JOptionPane.showMessageDialog(null, "\nSaldo actual: " + cuenta.getSaldo());
                                             } else {
-                                                    JOptionPane.showMessageDialog(null, "❌ Cuenta no encontrada.");
+                                                    JOptionPane.showMessageDialog(null, "Cuenta no encontrada.");
                                             }
                                     } else {
-                                            JOptionPane.showMessageDialog(null, "❌ Socio no encontrado.");
+                                            JOptionPane.showMessageDialog(null, "Socio no encontrado.");
                                     }
                             }
 
@@ -120,7 +120,7 @@ public class App {
                                             .map(Socio::getNombre)
                                             .reduce("", (a, b) -> a + "\n" + b);
 
-                                    JOptionPane.showMessageDialog(null, "👥 Lista de socios:\n" + socios);
+                                    JOptionPane.showMessageDialog(null, "Lista de socios:\n" + socios);
                             }
 
                             case 6 -> {
@@ -130,7 +130,7 @@ public class App {
                                             .map(c -> "Cuenta " + c.getNumeroCuenta() + " → Saldo: " + c.getSaldo())
                                             .reduce("", (a, b) -> a + "\n" + b);
 
-                                    JOptionPane.showMessageDialog(null, "🏦 Cuentas con saldo > 500000:\n" + cuentas);
+                                    JOptionPane.showMessageDialog(null, "Cuentas con saldo > 500000:\n" + cuentas);
                             }
 
                             case 7 -> {
@@ -142,8 +142,8 @@ public class App {
                                     JOptionPane.showMessageDialog(null, "💲 Total de saldos en la cooperativa: " + total);
                             }
 
-                            case 8 -> JOptionPane.showMessageDialog(null, "👋 Saliendo del sistema...");
-                            default -> JOptionPane.showMessageDialog(null, "❌ Opción inválida.");
+                            case 8 -> JOptionPane.showMessageDialog(null, "Saliendo del sistema...");
+                            default -> JOptionPane.showMessageDialog(null, "Opción inválida.");
                     }
 
             } while (opcion != 8);
