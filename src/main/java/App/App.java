@@ -151,11 +151,11 @@ public class App {
 
                                         // Recorremos todos los socios y todas sus cuentas
                                     coop.getSocios().stream()
-                                            .flatMap(s -> s.getCuentas().stream()) // obtenemos todas las cuentas de todos los socios
-                                            .filter(c -> c instanceof CuentaAhorros) // solo tomamos las cuentas de ahorro
-                                            .map(c -> (CuentaAhorros) c) // hacemos el casting para poder usar getInteres()
+                                            .flatMap(s -> s.getCuentas().stream()) // me da todas las cuentas de todos los socios
+                                            .filter(c -> c instanceof CuentaAhorros) // solo tomo las cuentas de ahorro
+                                            .map(c -> (CuentaAhorros) c) // le digo a mi programa que c es de tipo CuentaAhorros
                                             .forEach(c -> {
-                                                    double interesGenerado = c.getSaldo() * c.getInteres(); // cálculo del interés
+                                                    double interesGenerado = c.getSaldo() * c.getInteres(); // hace la cuenta del interes
                                                     JOptionPane.showMessageDialog(
                                                             null,
                                                             "Cuenta: " + c.getNumeroCuenta() +
