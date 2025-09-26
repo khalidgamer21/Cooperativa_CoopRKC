@@ -28,6 +28,7 @@ public class App {
                     6. Filtrar cuentas con saldo > 500000 (Stream)
                     7. Total de saldos en la cooperativa (Stream)
                     8. Salir
+                    9. Intereses generados en cuentas de ahorro
                     ->Seleccione una opcion<-:
                     """;
 
@@ -144,6 +145,29 @@ public class App {
 
                             case 8 -> JOptionPane.showMessageDialog(null, "Saliendo del sistema...");
                             default -> JOptionPane.showMessageDialog(null, "Opción inválida.");
+
+                            case 9 -> {
+                                    System.out.println("\n=== Intereses generados en cuentas de ahorro ===");
+
+                                        // Recorremos todos los socios y todas sus cuentas
+                                    coop.getSocios().stream()
+                                            .flatMap(s -> s.getCuentas().stream()) // obtenemos todas las cuentas de todos los socios
+                                            .filter(c -> c instanceof CuentaAhorros) // solo tomamos las cuentas de ahorro
+                                            .map(c -> (CuentaAhorros) c) // hacemos el casting para poder usar getInteres()
+                                            .forEach(c -> {
+                                                    double interesGenerado = c.getSaldo() * c.getInteres(); // cálculo del interés
+                                                    JOptionPane.showMessageDialog(
+                                                            null,
+                                                            "Cuenta: " + c.getNumeroCuenta() +
+                                                                    "\nSaldo actual: " + c.getSaldo() +
+                                                                    "\nInterés aplicado: " + (c.getInteres() * 100) + "%" +
+                                                                    "\nGanancia por interés: " + interesGenerado,
+                                                            "Intereses de la Cuenta",
+                                                            JOptionPane.INFORMATION_MESSAGE
+                                                    );
+                                            });
+                            }
+
                     }
 
             } while (opcion != 8);

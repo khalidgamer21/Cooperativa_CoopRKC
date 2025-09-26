@@ -9,6 +9,10 @@ public class CuentaAhorros extends Cuenta {
         this.interes = interes;
     }
 
+    public double getInteres() {
+        return this.interes;
+    }
+
 
     public void aplicarInteres() {
         saldo += saldo * interes;
@@ -51,7 +55,7 @@ public class CuentaAhorros extends Cuenta {
         }
 
         // si pasa, el monto es valido
-        saldo -= monto;
+        saldo -= monto; //saldo = saldo - monto; es lo mismo
         JOptionPane.showMessageDialog(null,
                 "Retiro exitoso.\nNuevo saldo en la cuenta " + getNumeroCuenta() +
                         ": " + getSaldo(),
